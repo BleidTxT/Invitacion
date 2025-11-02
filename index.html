@@ -106,6 +106,26 @@ button:hover{
   20%{opacity:1;}
   100%{transform:translateY(-10vh) scale(1);opacity:0;}
 }
+
+/* 🎶 Icono de música */
+.music-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ffca28;
+  color: #4e342e;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  font-size: 22px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  transition: 0.3s;
+}
+.music-btn:hover {
+  transform: scale(1.1);
+}
 </style>
 </head>
 <body>
@@ -132,34 +152,53 @@ button:hover{
     </div>
   </div>
 </div>
+
 <!-- 🎵 Música oculta -->
 <audio id="bgMusic" loop>
-  <source src="musica.mp3" type="audio/mpeg">
+  <source src="Paulo Londra - Nena Maldicion (Official Video).mp3" type="audio/mpeg">
   Tu navegador no soporta audio.
 </audio>
 
 <!-- 🎵 Botón para pausar/reanudar -->
 <button id="musicToggle" class="music-btn" title="Música 🎶">🎵</button>
+
 <script>
 const envelope=document.getElementById("envelope");
 const btn1=document.getElementById("goToFlor1");
 const btn2=document.getElementById("goToFlor2");
+const music=document.getElementById("bgMusic");
+const musicBtn=document.getElementById("musicToggle");
+let isPlaying=false;
 
 // 💌 abrir carta
 envelope.addEventListener("click",()=>{
   envelope.classList.toggle("open");
+  if(!isPlaying){
+    music.play().catch(()=>{});
+    isPlaying=true;
+  }
 });
 
-// 🌸 redirección a flor1.html
+// 🌸 redirección
 btn1.addEventListener("click",e=>{
   e.stopPropagation();
   window.location.href="flor1.html";
 });
 
-// 🌻 redirección a flor2.html
+// 🌻 redirección
 btn2.addEventListener("click",e=>{
   e.stopPropagation();
   window.location.href="flor2.html";
+});
+
+// 🎵 botón de música
+musicBtn.addEventListener("click",()=>{
+  if(isPlaying){
+    music.pause();
+  }else{
+    music.play().catch(()=>{});
+  }
+  isPlaying=!isPlaying;
 });
 </script>
 
