@@ -1,214 +1,160 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🌻 Para vos, morenita 🌻</title>
-  <style>
-    body {
-      background: linear-gradient(to bottom, #fff8e1, #ffecb3);
-      text-align: center;
-      font-family: 'Poppins', sans-serif;
-      color: #5d4037;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      overflow: auto;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para vos, morenita 💌</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  height:100vh;
+  background:radial-gradient(circle at top,#fff8e1,#ffe082,#fbc02d);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  font-family:"Poppins",sans-serif;
+}
 
-    header {
-      background-color: #f9a825;
-      color: white;
-      padding: 15px;
-      width: 100%;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: 1px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
+/* ✨ Carta */
+.envelope{
+  position:relative;
+  width:340px;
+  height:220px;
+  background:#ffecb3;
+  border:3px solid #d7b43f;
+  border-radius:10px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  transition:transform 1s ease;
+  transform-style:preserve-3d;
+  cursor:pointer;
+}
+.envelope.open{
+  transform:rotateX(180deg);
+}
+.front,.back{
+  position:absolute;
+  width:100%;height:100%;
+  backface-visibility:hidden;
+  border-radius:10px;
+}
+.front{
+  background:linear-gradient(145deg,#fff59d,#fdd835);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+.front h2{
+  color:#5d4037;
+  font-size:1.6rem;
+  margin-bottom:0.5rem;
+}
+.front p{
+  font-size:1rem;
+  color:#8d6e63;
+}
 
-    section {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding-top: 100px;
-      padding-bottom: 80px;
-      position: relative;
-      width: 100%;
-    }
+.back{
+  background:#fffde7;
+  transform:rotateX(180deg);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  padding:25px;
+}
+.back p{
+  color:#5d4037;
+  font-size:1.1rem;
+  margin-bottom:15px;
+}
 
-    .card {
-      background: rgba(255, 255, 255, 0.9);
-      width: 80%;
-      max-width: 420px;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      border: 3px solid #fbc02d;
-      animation: fadeIn 1s ease-in-out;
-      position: relative;
-      z-index: 10;
-    }
+/* 🌻 Botones */
+.buttons{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:center;
+}
+button{
+  padding:10px 22px;
+  border:none;
+  border-radius:20px;
+  font-weight:bold;
+  color:#4e342e;
+  background:#ffca28;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+button:hover{
+  background:#ffd54f;
+  transform:scale(1.1);
+}
 
-    .card img {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 15px;
-    }
-
-    h2 {
-      color: #795548;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .button {
-      background-color: #fbc02d;
-      color: #5d4037;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 15px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: 0.3s;
-      font-weight: bold;
-    }
-
-    .button:hover {
-      background-color: #f9a825;
-      transform: scale(1.1);
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    footer {
-      background-color: #f9a825;
-      color: white;
-      padding: 10px;
-      text-align: center;
-      width: 100%;
-      position: fixed;
-      bottom: 0;
-      font-size: 14px;
-    }
-
-    /* Girasoles flotantes */
-    .flower-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .flower {
-      position: absolute;
-      font-size: 24px;
-      animation: floatUp 7s infinite ease-in-out;
-      opacity: 0.8;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
-      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-    }
-
-    .floating-card {
-      animation: floatCard 4s ease-in-out infinite;
-    }
-
-    @keyframes floatCard {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-      100% { transform: translateY(0); }
-    }
-  </style>
+/* ✨ Fondo brillante */
+.spark{
+  position:absolute;
+  width:4px;height:4px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.8);
+  animation:sparkle 6s linear infinite;
+}
+@keyframes sparkle{
+  0%{transform:translateY(100vh) scale(0.5);opacity:0;}
+  20%{opacity:1;}
+  100%{transform:translateY(-10vh) scale(1);opacity:0;}
+}
+</style>
 </head>
 <body>
 
-  <header>🌻 Para vos, morenita 🌻</header>
+<!-- ✨ Brillitos -->
+<div class="spark" style="left:10%;animation-delay:0s;"></div>
+<div class="spark" style="left:25%;animation-delay:2s;"></div>
+<div class="spark" style="left:60%;animation-delay:1s;"></div>
+<div class="spark" style="left:75%;animation-delay:3s;"></div>
+<div class="spark" style="left:90%;animation-delay:4s;"></div>
 
-  <section>
-    <div class="flower-container"></div>
+<!-- 💌 Carta -->
+<div class="envelope" id="envelope">
+  <div class="front">
+    <h2>Para vos, morenita 💛🌻</h2>
+    <p>Haz clic para abrir 💌</p>
+  </div>
 
-    <div class="card floating-card" id="mainCard">
-      <img src="https://images.unsplash.com/photo-1505483531331-74c3b2b8d8b5?auto=format&fit=crop&w=800&q=80" alt="Girasoles">
-      <h2>Con todo mi cariño 🌻</h2>
-      <p>Solo quería regalarte este pequeño detalle, porque los girasoles me recordaron a vos: llenás todo de luz sin darte cuenta.</p>
-      <p>Gracias por ser así, tan auténtica, tan vos, mi morenita bonita. 💛</p>
-      <button class="button" onclick="showDetails()">Abrir mensaje 🌻</button>
+  <div class="back">
+    <p>Con cariño, tu amor 💕</p>
+    <div class="buttons">
+      <button id="goToFlor1">Ver Flor 1 🌸</button>
+      <button id="goToFlor2">Ver Flor 2 🌻</button>
     </div>
+  </div>
+</div>
 
-    <div class="card hidden" id="detailsCard">
-      <h2>💛 Sos mi rayito de sol 💛</h2>
-      <p>No hacen falta palabras cuando una sonrisa tuya ilumina todo.</p>
-      <p>Si los girasoles miran al sol para florecer, yo te miro a vos. 🌻</p>
-      <p>Con mucho cariño, de alguien que te piensa más de lo que imagina.</p>
-      <button class="button" onclick="animateFlowers()">Más girasoles 🌻</button>
-    </div>
-  </section>
+<script>
+const envelope=document.getElementById("envelope");
+const btn1=document.getElementById("goToFlor1");
+const btn2=document.getElementById("goToFlor2");
 
-  <footer>
-    Hecho con amor y un montón de girasoles 🌻💛
-  </footer>
+// 💌 abrir carta
+envelope.addEventListener("click",()=>{
+  envelope.classList.toggle("open");
+});
 
-  <script>
-    function showDetails() {
-      document.getElementById('mainCard').classList.add('hidden');
-      document.getElementById('detailsCard').classList.remove('hidden');
-    }
+// 🌸 redirección a flor1.html
+btn1.addEventListener("click",e=>{
+  e.stopPropagation();
+  window.location.href="flor1.html";
+});
 
-    // Girasoles flotantes
-    function animateFlowers() {
-      const flowerContainer = document.querySelector('.flower-container');
-      for (let i = 0; i < 10; i++) {
-        const flower = document.createElement('div');
-        flower.classList.add('flower');
-        flower.innerHTML = '🌻';
-        flower.style.left = Math.random() * 100 + 'vw';
-        flower.style.animationDuration = Math.random() * 4 + 5 + 's';
-        flowerContainer.appendChild(flower);
-        setTimeout(() => flower.remove(), 7000);
-      }
-    }
-
-    function createFlowers() {
-      const flowerContainer = document.querySelector('.flower-container');
-      setInterval(() => {
-        const flower = document.createElement('div');
-        flower.classList.add('flower');
-        flower.innerHTML = '🌻';
-        flower.style.left = Math.random() * 100 + 'vw';
-        flower.style.animationDuration = Math.random() * 4 + 5 + 's';
-        flowerContainer.appendChild(flower);
-        setTimeout(() => flower.remove(), 7000);
-      }, 800);
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      createFlowers();
-    });
-  </script>
+// 🌻 redirección a flor2.html
+btn2.addEventListener("click",e=>{
+  e.stopPropagation();
+  window.location.href="flor2.html";
+});
+</script>
 
 </body>
 </html>
